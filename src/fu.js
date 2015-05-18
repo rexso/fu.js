@@ -1,5 +1,5 @@
 (function() {
-    var version = '2.1.0',
+    var version = '2.1.1',
         uniqueChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
         uniqueArray = [];
     
