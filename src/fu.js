@@ -115,6 +115,45 @@
         return matching;
     }
     
+    function extend(target, source) {
+        var args = arguments, n, o, obj, p, proto, protos = [];
+        
+        for(n = 1; n < args.length; ++n) {
+            if(args[n] instanceof Object) {
+                if(!(p = protos.push(function(){}) - 1)) {
+                    protos[p].prototype = Object.create(args[n].prototype || args[n]);
+                } else {
+                    protos[p].prototype = Object.create(protos[p - 1].prototype);
+                    
+                    if((obj = args[n].prototype)) {
+                        for(o in obj) {
+                            if(obj.hasOwnProperty(o)) {
+                                protos[p].prototype[o] = obj[o];
+                            }
+                        }
+                    } else if((obj = args[n])) {
+                        for(o in obj) {
+                            if(obj.hasOwnProperty(o)) {
+                                protos[p].prototype[o] = obj[o];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        obj = target.prototype;
+        target.prototype = Object.create(protos.pop().prototype);
+        
+        for(n in obj) {
+            if(obj.hasOwnProperty(n)) {
+                target.prototype[n] = obj[n];
+            }
+        }
+        
+        return target;
+    }
+    
     function forEach(object, iterator, context) {
         var key, len;
         
@@ -156,6 +195,7 @@
     window.fu = {
         ajax:       ajax,
         elements:   elements,
+        extend:     extend,
         forEach:    forEach,
         jsonp:      jsonp,
         version:    version
