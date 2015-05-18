@@ -116,11 +116,11 @@
     }
     
     function extend(target, source) {
-        var args = arguments, n, o, obj, p, proto, protos = [];
+        var args = arguments, n, o, obj, p, proto, protos = [], nop = function(){};
         
         for(n = 1; n < args.length; ++n) {
             if(args[n] instanceof Object) {
-                if(!(p = protos.push(function(){}) - 1)) {
+                if(!(p = protos.push(nop) - 1)) {
                     protos[p].prototype = Object.create(args[n].prototype || args[n]);
                 } else {
                     protos[p].prototype = Object.create(protos[p - 1].prototype);
