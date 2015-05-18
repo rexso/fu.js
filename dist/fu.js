@@ -1,5 +1,5 @@
 (function() {
-    var version = '2.1.1',
+    var version = '2.1.2',
         uniqueChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
         uniqueArray = [];
     
@@ -112,7 +112,7 @@
             }
         }
         
-        return matching;
+        return (matching.length == 1 ? matching[0] : matching);
     }
     
     function extend(target, source) {
@@ -194,11 +194,10 @@
     
     window.fu = {
         ajax:       ajax,
-        elements:   elements,
+        elem:       elements,
         extend:     extend,
         forEach:    forEach,
         jsonp:      jsonp,
         version:    version
     };
-    
 })();
